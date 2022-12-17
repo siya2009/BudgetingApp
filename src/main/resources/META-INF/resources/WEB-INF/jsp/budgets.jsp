@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="list-group list-group-flush">
+		<div class="list-group list-group-flush" c:forEach="" >
 			<a href="#" class="list-group-item list-group-item-action">An item</a> 
 			<a href="#" class="list-group-item list-group-item-action">A second item</a> 
 			<a href="#" class="list-group-item list-group-item-action">A third item</a>
