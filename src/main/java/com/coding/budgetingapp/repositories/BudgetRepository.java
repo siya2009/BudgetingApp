@@ -10,4 +10,5 @@ import com.coding.budgetingapp.domain.User;
 
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
 	TreeSet<Budget> findByUsersIn(Set<User> users);
+	long countByUsersIn(Set<User> users);
 }

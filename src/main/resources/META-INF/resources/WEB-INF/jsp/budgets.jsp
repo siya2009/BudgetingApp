@@ -1,27 +1,35 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<link href="webjars/bootstrap/5.1.3/css/bootstrap.min.css"
-	rel="stylesheet" />
-<link rel="stylesheet" href="/css/fontawesome.min.css" />
-<title>Welcome to the Budgeting App</title>
-</head>
-<body>
+<%@ include file="common/header.jsp"%>
 	<div class="card">
 		<div class="card-header">
 			<div class="row">
 				<div class="h2 col-10">Your Budgets</div>
 				<div class="col-2">
-					<i class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
+					<i id="addBudget"class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		</div>
-		<div class="list-group list-group-flush" c:forEach="" >
-			<a href="#" class="list-group-item list-group-item-action">An item</a> 
-			<a href="#" class="list-group-item list-group-item-action">A second item</a> 
-			<a href="#" class="list-group-item list-group-item-action">A third item</a>
+		<div class="list-group list-group-flush">
+		 <c:forEach items="${budgets}" var="budget">
+		 	<a href="#" class="list-group-item list-group-item-action" id="${budget.name}">${budget.name}</a>
+		</c:forEach>
 		</div>
 	</div>
-</body>
-</html>
+ <%@ include file="common/footer.jsp"%>
+ <script type="text/javascript">
+      $(function () {
+        $("#addBudget").click(function () {
+          $.ajax({
+        	  url: '/budgets',
+        	  method: 'post',
+        	  dataType: 'json',
+        	  success : function (data) {
+        		console.log(data);
+        		location.reload();
+        	  },
+        	  error : function () {
+        		console.log("There was an error creating a new budget");  
+        	  }
+          });
+        });
+      });
+ </script>
