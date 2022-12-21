@@ -10,7 +10,7 @@
 		</div>
 		<div class="list-group list-group-flush">
 		 <c:forEach items="${budgets}" var="budget">
-		 	<a href="#" class="list-group-item list-group-item-action" id="${budget.name}">${budget.name}</a>
+		 	<a href="/budgets/${budget.id}" class="list-group-item list-group-item-action">${budget.name}</a>
 		</c:forEach>
 		</div>
 	</div>

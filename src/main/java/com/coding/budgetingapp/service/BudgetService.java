@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import com.coding.budgetingapp.domain.Budget;
+import com.coding.budgetingapp.domain.Group;
 import com.coding.budgetingapp.domain.User;
 import com.coding.budgetingapp.repositories.BudgetRepository;
 
@@ -37,6 +38,12 @@ public class BudgetService {
 		budget.setName("New Budget #" + ++count);
 		budget.setUsers(users);
 		
+		Group group = new Group();
+		group.setBudget(budget);
+		group.setName("Savings");
+		
+		budget.getGroups().add(group);	
+		
 		user.setBudgets(budgets);
 		return budgetRepo.save(budget);
 	}
@@ -44,5 +51,11 @@ public class BudgetService {
 
 	private long getBudgetCount(Set<User> users) {
 		return budgetRepo.countByUsersIn(users);
+	}
+
+
+
+	public Budget findById(Long budgetId) {
+		return budgetRepo.findById(budgetId).get();
 	}
 }

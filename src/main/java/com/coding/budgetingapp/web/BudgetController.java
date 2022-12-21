@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,13 +23,21 @@ public class BudgetController {
 	private BudgetService budgetService;
 	
 	@RequestMapping(value="/budgets",method = RequestMethod.GET)
-	public String getBudget(@AuthenticationPrincipal User user ,ModelMap model) {
-		getBudgets(user, model);
+	public String getBudgets(@AuthenticationPrincipal User user ,ModelMap model) {
+		populateUserBudgetsOnModel(user, model);
 		return "budgets";
 	}
 
-
-	private void getBudgets(User user, ModelMap model) {
+	//@RequestMapping(value = "/budgets/{budgetId}", method = RequestMethod.GET)
+	@GetMapping("/budgets/{budgetId}")
+	public String getBudget(@PathVariable("budgetId") Long budgetId, ModelMap model) {
+		Budget budget = budgetService.findById(budgetId);
+		model.put("budget", budget);
+		return "budget";
+		
+	}
+	
+	private void populateUserBudgetsOnModel(User user, ModelMap model) {
 		TreeSet<Budget> budgets = budgetService.getBudgets(user);
 		
 		model.put("budgets", budgets);
@@ -41,7 +51,7 @@ public class BudgetController {
 		Budget budget = new Budget();
 		budget = budgetService.saveBudget(user, budget);
 		
-		getBudgets(user, model);
+		populateUserBudgetsOnModel(user, model);
 		
 		return budget;
 	}

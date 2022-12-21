@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="webjars/bootstrap/5.1.3/css/bootstrap.min.css"
+<link href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="/css/fontawesome.min.css" />
 <title>Insert title here</title>
