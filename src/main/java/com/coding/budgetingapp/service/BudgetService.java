@@ -1,9 +1,12 @@
 package com.coding.budgetingapp.service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -57,5 +60,9 @@ public class BudgetService {
 
 	public Budget findById(Long budgetId) {
 		return budgetRepo.findById(budgetId).get();
+	}
+	
+	public Date convertStringToDate(String date) throws ParseException {
+		return DateUtils.parseDate(date, "yyy-MM-dd");
 	}
 }

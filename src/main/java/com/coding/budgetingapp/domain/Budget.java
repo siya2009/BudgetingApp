@@ -1,5 +1,6 @@
 package com.coding.budgetingapp.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -27,6 +28,8 @@ public class Budget implements Comparable<Budget> {
 	private Long id;
 	private String name;
 	private Set<User> users = new HashSet<>();
+	private Date startDate;
+	private Date endDate;
 	private SortedSet<Group> groups = new TreeSet<>();
 	
 
@@ -68,6 +71,21 @@ public class Budget implements Comparable<Budget> {
 	public void setGroups(SortedSet<Group> groups) {
 		this.groups = groups;
 	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
+	
 	@Override
 	public int compareTo(Budget budget) {
 		return this.id.compareTo(budget.getId());
