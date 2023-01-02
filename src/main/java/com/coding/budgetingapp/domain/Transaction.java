@@ -1,25 +1,28 @@
 package com.coding.budgetingapp.domain;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Transaction {
 	
 	
 	private Long id;
-	private Date date;
+	private LocalDate date;
 	private BigDecimal total;
 	private String type;
-	private String notes;
+	private String note;
 	private Category category;
+	private Budget budget;
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
@@ -28,12 +31,15 @@ public class Transaction {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getDate() {
+	
+	@DateTimeFormat(pattern = "yyyy-MM-DD")
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+	
 	public BigDecimal getTotal() {
 		return total;
 	}
@@ -46,11 +52,13 @@ public class Transaction {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getNotes() {
-		return notes;
+	
+
+	public String getNote() {
+		return note;
 	}
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 	@ManyToOne
@@ -61,7 +69,13 @@ public class Transaction {
 		this.category = category;
 	}
 	
-	
+	@ManyToOne
+	public Budget getBudget() {
+		return budget;
+	}
+	public void setBudget(Budget budget) {
+		this.budget = budget;
+	}
 	
 	
 }

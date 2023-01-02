@@ -31,6 +31,7 @@ public class Budget implements Comparable<Budget> {
 	private Date startDate;
 	private Date endDate;
 	private SortedSet<Group> groups = new TreeSet<>();
+	private Set<Transaction> transactions = new HashSet<>();
 	
 
 	@Id
@@ -85,6 +86,14 @@ public class Budget implements Comparable<Budget> {
 		this.endDate = endDate;
 	}
 	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "budget")
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
 	
 	@Override
 	public int compareTo(Budget budget) {

@@ -17,12 +17,19 @@
 	<div class="card">
       <div class="card-header">
         <div class="row">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb h3">
-              <li class="breadcrumb-item"><a href="/budgets">Budgets</a></li>
-              <li class="breadcrumb-item active" aria-current="page">${budget.name}</li>
-            </ol>
-          </nav>
+			<div class="col-10 col-md-11">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb h3">
+						<li class="breadcrumb-item"><a href="/budgets">Budgets</a></li>
+						<li class="breadcrumb-item active" aria-current="page">${budget.name}</li>
+					</ol>
+				</nav>
+			</div>
+		  <div class="col-4 col-md-1">
+		   <form action="/budgets/${budget.id}/transactions" id="addTransactionForm" method="post"> </form>
+		    <i id="addTransaction"class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
+		  </div>
+			
         </div>
       </div>
       
@@ -86,6 +93,8 @@
  
 <script type="text/javascript">
 $(function () {
+	var hasCategories = ${hasCategories} / false;
+	var budgetId = ${budget.id};
 	$('#dateRange').daterangepicker({
 	
 	},function (start, end, label) {
@@ -108,6 +117,14 @@ $(function () {
 	  })
 		
 	});
+	
+	$("#addTransaction").click(function(){
+		if(hasCategories)
+		  $("#addTransactionForm").submit();
+		else
+		alert("You must create a category before you can add a transaction to your budget.")
+	})
+	
   });
 </script>
  
