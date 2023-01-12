@@ -29,7 +29,7 @@ public class BudgetController {
 	@RequestMapping(value = "/budgets", method = RequestMethod.GET)
 	public String getBudgets(@AuthenticationPrincipal User user, ModelMap model) {
 		populateUserBudgetsOnModel(user, model);
-		return "budgets";
+		return "budgets.jsp";
 	}
 
 	// @RequestMapping(value = "/budgets/{budgetId}", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class BudgetController {
 						
 		model.put("budget", budget);
 		model.put("hasCategories", hasCategories);
-		return "budget";
+		return "budget.jsp";
 
 	}
 

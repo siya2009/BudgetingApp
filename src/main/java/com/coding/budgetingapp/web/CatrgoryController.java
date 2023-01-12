@@ -44,7 +44,7 @@ public class CatrgoryController {
 		Category category = categoryService.findById(categoryId);
 		model.put("category", category);
 		model.put("group", category.getGroup());
-		return "category";
+		return "category.jsp";
 	}
 	
 	@PostMapping("{categoryId}")

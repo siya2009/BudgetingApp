@@ -31,7 +31,7 @@ public class GroupController {
 	public String getGroup(@PathVariable Long groupId, ModelMap model) {
 		Group group = groupService.findById(groupId);
 		model.put("group", group);
-		return "group";
+		return "group.jsp";
 	}
 	
 	@PostMapping("{groupId}")

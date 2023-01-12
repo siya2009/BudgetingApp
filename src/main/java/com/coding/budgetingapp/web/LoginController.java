@@ -6,10 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.util.StringUtils;
 
 import com.coding.budgetingapp.domain.User;
 import com.coding.budgetingapp.service.UserService;
@@ -24,7 +24,7 @@ public class LoginController {
 	public String getLogin(ModelMap model) {
 		User user = new User();
 		model.put("user", user);
-		return "login";
+		return "login.jsp";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -32,7 +32,7 @@ public class LoginController {
 		User user = new User();
 		model.put("user", user);
 
-		return "register";
+		return "register.jsp";
 	}
 
 	@SuppressWarnings("deprecation")
@@ -42,14 +42,14 @@ public class LoginController {
 		if (!StringUtils.isEmpty(user.getPassword()) && !StringUtils.isEmpty(user.getConfirmPassword())) {
 			if (!user.getPassword().equals(user.getConfirmPassword())) {
 				model.put("error", "Password does not match");
-				return "register";
+				return "register.jsp";
 			}
 		} 
 	
 
 		if (StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getConfirmPassword())) {
 			model.put("error", "You must choose a password");
-			return "register";
+			return "register.jsp";
 		}
 
 		userService.saveUser(user);
