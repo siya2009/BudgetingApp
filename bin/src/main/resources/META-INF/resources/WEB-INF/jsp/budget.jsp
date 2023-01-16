@@ -26,9 +26,8 @@
 				</nav>
 			</div>
 		  <div class="col-4 col-md-1">
-		   <form action="/budgets/${budget.id}/transactions" id="addTransactionForm" method="post"> 
+		   <form action="/budgets/${budget.id}/transactions" id="addTransactionForm" method="post"> </form>
 		    <i id="addTransaction"class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
-		   </form>
 		  </div>
 			
         </div>

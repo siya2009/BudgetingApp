@@ -1,6 +1,6 @@
 <%@ include file="common/header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+
 <style scoped>
 .no-underline a {
 	text-decoration: none;
@@ -12,44 +12,32 @@
 	budgetId = ${group.budget.id}
 	var categoryId=0
 	categoryId = ${category.id}
-	var groupId = 0
-	groupId= ${group.id}
-	
+
 	$(function() {
 		 $("tr[id*='transaction-']").click(function() {
 				   var transactionId = $(this).prop('id').split('-')[1];
-				   window.location.href = '/budgets/' + budgetId + '/groups/' + groupId + '/categories/' + categoryId + '/transactions/'+ transactionId;
+				   window.location.href = '/budgets/' + budgetId + '/categories/' + categoryId + '/transactions/'+ transactionId;
 				});
-		 
-		 $("#addTransaction").click(function(){
-			 $("#addTransactionForm").submit();
-		 });
 	});
 </script>
 
 <div class="card">
 	<div class="card-header">
 		<div class="row">
-		   <div class="col-10 col-md-11">
-		    <nav aria-label="breadcrumb">
+			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb h3">
 					<li class="breadcrumb-item"><a href="/budgets">Budgets</a></li>
-					<li class="breadcrumb-item"><a href="/budgets/${group.budget.id}">${group.budget.name}</a></li>
-					<li class="breadcrumb-item"><a href="/budgets/${group.budget.id}/groups/${group.id} /"> 
-					<c:out value="${fn.length(group.name)==null ? 'New Group' : group.name}" />
+					<li class="breadcrumb-item"><a
+						href="/budgets/${group.budget.id}">${group.budget.name}</a></li>
+					<li class="breadcrumb-item"><a
+						href="/budgets/${group.budget.id}/groups/${group.id}/"> <c:out
+								value="${fn.length(group.name)==null ? 'New Group' : group.name}">
+							</c:out>
 					</a></li>
-					<li class="breadcrumb-item active" aria-current="page">${category.name}</li>
+					<li class="breadcrumb-item active" aria-current="page">
+						${category.name}</li>
 				</ol>
 			</nav>
-			<div>
-			<div class="col-2 col-md-1">
-			  <form action="/budgets/${group.budget.id}/groups/${group.id}/catagories/${category.id}/transactions" id="addTransactionForm" method="post">
-		       <i id="addTransaction" class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
-		      </form>
-			</div>	
-		   </div>
-		 </div>
-		   
 		</div>
 	</div>
 
@@ -119,6 +107,8 @@
 				</table>
 			</div>
 		</div>
+
+
 
 	</div>
 </div>

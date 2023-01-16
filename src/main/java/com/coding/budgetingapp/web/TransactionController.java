@@ -26,7 +26,7 @@ import com.coding.budgetingapp.service.TransactionService;
 @RequestMapping(value = {"/budgets/{budgetId}/groups/{groupId}/catagories/{catagoryId}/transactions",
 						"budgets/{budgetId}/transactions"})
 public class TransactionController {
-	
+	String retUrl = "";
 	@Autowired
 	private BudgetService budgetService;
 	
@@ -53,13 +53,15 @@ public class TransactionController {
 			
 			tx.setCategory(category);
 			category.getTransactions().add(tx);
+			retUrl = "/budgets/"+budgetId+"/groups/"+category.getGroup().getId()+"/categories/"+category.getId()+"/transactions";
 			
-			
-		} 
+		} else {
+			retUrl = "/budgets/"+budgetId+"/transactions";
+		}
 		
 		
 		tx = transactionService.save(tx);
-		return "redirect:/budgets/"+budgetId+"/transactions/"+tx.getId();
+		return "redirect:" + retUrl + "/" +tx.getId();
 				
 	}
 	
