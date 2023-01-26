@@ -23,8 +23,8 @@ import com.coding.budgetingapp.service.CategoryService;
 import com.coding.budgetingapp.service.TransactionService;
 
 @Controller
-@RequestMapping(value = {"/budgets/{budgetId}/groups/{groupId}/catagories/{catagoryId}/transactions",
-						"budgets/{budgetId}/transactions"})
+@RequestMapping(value= {"/budgets/{budgetId}/groups/{groupId}/categories/{categoryId}/transactions",
+                        "/budgets/{budgetId}/transactions"})
 public class TransactionController {
 	String retUrl = "";
 	@Autowired
@@ -37,33 +37,34 @@ public class TransactionController {
 	private CategoryService categoryService;
 	
 	@PostMapping("")
-	public String addTransactionToBudget(@PathVariable Long budgetId, @PathVariable(required = false) 
-										Long groupId, @PathVariable(required = false) Long categoryId) {
-		Transaction tx = new Transaction();
-		Budget budget = budgetService.findById(budgetId);
-		
-		tx.setBudget(budget);
-		budget.getTransactions().add(tx);
-		
-		tx.setDate(LocalDate.now());
-		
-		if (categoryId != null) {
-			
-			Category category = categoryService.findById(categoryId);
-			
-			tx.setCategory(category);
-			category.getTransactions().add(tx);
-			retUrl = "/budgets/"+budgetId+"/groups/"+category.getGroup().getId()+"/categories/"+category.getId()+"/transactions";
-			
-		} else {
-			retUrl = "/budgets/"+budgetId+"/transactions";
-		}
-		
-		
-		tx = transactionService.save(tx);
-		return "redirect:" + retUrl + "/" +tx.getId();
-				
-	}
+	  public String addTransactionToBudget(@PathVariable Long budgetId, 
+	                                     @PathVariable(required=false) Long groupId,
+	                                     @PathVariable(required=false) Long categoryId)
+	  {
+	    String retUrl = "";
+	    Transaction tx = new Transaction();
+	    Budget budget = budgetService.findById(budgetId);
+	    
+	    tx.setBudget(budget);
+	    budget.getTransactions().add(tx);
+	   
+	    tx.setDate(LocalDate.now());
+	    
+	    if (categoryId != null)
+	    {
+	      Category category = categoryService.findById(categoryId);
+	      
+	      tx.setCategory(category);
+	      category.getTransactions().add(tx);
+	      retUrl = "/budgets/"+budgetId+"/groups/"+category.getGroup().getId()+"/categories/"+category.getId()+"/transactions";
+	    } else {
+	      retUrl = "/budgets/"+budgetId+"/transactions";
+	    }
+	    
+	    tx = transactionService.save(tx);
+	    System.out.println("transaction id ----->"+tx.getId());
+	    return "redirect:" + retUrl + "/"+tx.getId();  
+	  }
 	
 	@GetMapping("{transactionId}")
 	public String getTransaction(@PathVariable Long transactionId, ModelMap model) {

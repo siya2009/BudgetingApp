@@ -43,9 +43,9 @@
 			</nav>
 			<div>
 			<div class="col-2 col-md-1">
-			  <form action="/budgets/${group.budget.id}/groups/${group.id}/catagories/${category.id}/transactions" id="addTransactionForm" method="post">
-		       <i id="addTransaction" class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
-		      </form>
+			   <form id="addTransactionForm" action="/budgets/${group.budget.id}/groups/${group.id}/categories/${category.id}/transactions" method="post">
+              <i id="addTransaction" class="fa-solid fa-plus fa-2x" aria-hidden="true"></i>
+            </form> 
 			</div>	
 		   </div>
 		 </div>
@@ -108,7 +108,16 @@
 								<fmt:formatDate type="date" pattern="MMM-dd" value="${parsedDate}" />
 								</td>
 								<td>${category.name}</td>
-								<td>${transaction.total}</td>
+								<td>
+								  <c:choose>
+                                       <c:when test="${transaction.total == NULL}">
+                                        <fmt:formatNumber type="currency" value="0" maxFractionDigits = "3" />
+								       </c:when>
+								       <c:otherwise>
+								       <fmt:formatNumber type="currency" value="${transaction.total}" maxFractionDigits = "3" />
+								       </c:otherwise>
+								  </c:choose>
+								</td>
 								<td>${transaction.note}</td>
 
 							</tr>
