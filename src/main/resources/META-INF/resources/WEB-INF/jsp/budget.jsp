@@ -36,14 +36,14 @@
       
 		<div class="card-body">
 			<div class="alert alert-secondary link"  role="alert" id="dateRange">
-			
-			  <c:set var = "startDate" value = "${budget.startDate}" />
+			  <fmt:parseDate value="${budget.startDate}" pattern="yyyy-MM-dd" var="parseStartDate"/>
+			  <c:set var = "startDate" value = "${parseStartDate}" />
 			   <span class="h5" id="startDate">
 			     <fmt:formatDate pattern="MMMM d, yyyy" value="${startDate}" />
 			   </span>
 			   
-			   
-			  <c:set var = "endDate" value = "${budget.endDate}" />
+			   <fmt:parseDate value="${budget.endDate}" pattern="yyyy-MM-dd" var="parseEndDate"/> 
+			  <c:set var = "endDate" value = "${parseEndDate}" />
 			   <span class="h5" id="endDate"> - 
 			  <fmt:formatDate pattern="MMMM d, yyyy" value="${endDate}" />
 			   </span>

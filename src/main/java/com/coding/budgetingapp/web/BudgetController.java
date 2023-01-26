@@ -1,8 +1,7 @@
 package com.coding.budgetingapp.web;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +62,7 @@ public class BudgetController {
 	  
 	   budget.setStartDate(budgetService.convertStringToDate(startDate));
 	   budget.setEndDate(budgetService.convertStringToDate(endDate));
-	    System.out.println("Start date"+startDate+" and enddate is ***"+endDate);
-	    System.out.println("Budget name is "+budget.getName());
-	    budgetService.saveBudget(user, budget);
+	   budgetService.saveBudget(user, budget);
 	  }
 	 
 
@@ -73,19 +70,9 @@ public class BudgetController {
 	public @ResponseBody Budget postBudget(@AuthenticationPrincipal User user, ModelMap model) {
 
 		Budget budget = new Budget();
-		Calendar cal = Calendar.getInstance();
-
-		cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1, 0, 0, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-
-		Date firstOfMonth = cal.getTime();
-		cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
-		cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
-		cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
-		cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
-		cal.set(Calendar.MILLISECOND, 0);
-
-		Date lastOfMonth = cal.getTime();
+		
+		LocalDate firstOfMonth = LocalDate.now().withDayOfMonth(1);
+		LocalDate lastOfMonth = LocalDate.now().withDayOfMonth(firstOfMonth.lengthOfMonth());
 		budget.setStartDate(firstOfMonth);
 		budget.setEndDate(lastOfMonth);
 		budget = budgetService.saveBudget(user, budget);

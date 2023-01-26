@@ -86,7 +86,19 @@
 
 		<div class="card" style="margin-top: 0.25em">
 			<div class="card-header">
-				<strong>Transactions</strong>
+				<strong>Transactions </strong>
+				<p>
+				<fmt:parseDate value="${category.group.budget.startDate}" pattern="yyyy-MM-dd" var="parseStartDate"/>
+				<c:set var = "startDate" value = "${parseStartDate}" />
+			      <span id="startDate">
+			        <fmt:formatDate pattern="MMMM d, yyyy" value="${startDate}" />
+			      </span>
+			     <fmt:parseDate value="${category.group.budget.endDate}" pattern="yyyy-MM-dd" var="parseEndDate"/>
+			    <c:set var = "endDate" value = "${parseEndDate}" />
+			      <span id="endDate"> - 
+			       <fmt:formatDate pattern="MMMM d, yyyy" value="${endDate}" />
+			      </span>
+			   </p>
 			</div>
 			<div class="card-body">
 
@@ -101,7 +113,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${category.transactions}" var="transaction">
+						<c:forEach items="${filteredTxn}" var="transaction">
 							<tr style="cursor: pointer;" id="transaction-${transaction.id}">
 								<td>
 								<fmt:parseDate value="${transaction.date}" type="date" pattern="yyyy-MM-dd" var="parsedDate" /> 
